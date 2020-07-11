@@ -1,0 +1,57 @@
+version: '3'
+services:
+    discovery:
+        container_name: discovery
+        image: poc-discovery-server:latest
+        ports:
+            - 8761:8761
+    gateway-service:
+        container_name: gateway-service
+        image: poc-gateway-service:latest
+        ports:
+            - 8765:8765
+        links:
+            - discovery:discovery
+        depends_on:
+            - discovery
+        logging:
+            driver: json-file
+        environment:
+            server.port: 8765
+            eureka.client.enabled: 'true'
+            eureka.host: discovery
+            eureka.instance.preferIpAddress: 'true'
+    movie-info-service:
+        container_name: movie-info-service
+        image: poc-movie-info-service:latest
+        ports:
+            - 8082:8082
+        links:
+            - discovery:discovery
+        depends_on:
+            - discovery
+        logging:
+            driver: json-file
+        environment:
+            server.port: 8082
+            eureka.client.enabled: 'true'
+            eureka.host: discovery
+            eureka.instance.preferIpAddress: 'true'
+    movie-catlog-service:
+        container_name: movie-catlog-service
+        image: poc-movie-catlog-service:latest
+        ports:
+            - 8083:8083
+        links:
+            - discovery:discovery
+        depends_on:
+            - discovery
+        logging:
+            driver: json-file
+        environment:
+            server.port: 8083
+            eureka.client.enabled: 'true'
+            eureka.host: discovery
+            eureka.instance.preferIpAddress: 'true'            
+            aws.access.key.id: AKIASU4VHT2KRTYN73OY
+            aws.secret.access.key: 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

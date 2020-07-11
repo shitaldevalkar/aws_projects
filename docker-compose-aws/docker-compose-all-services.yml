@@ -1,0 +1,49 @@
+version: '3'
+services:
+    discovery:
+        image: 182312214165.dkr.ecr.ap-south-1.amazonaws.com/shital-docker-repository:discovery-service
+        ports:
+            - 8761:8761
+    gateway-service:
+        image: 182312214165.dkr.ecr.ap-south-1.amazonaws.com/shital-docker-repository:gateway-service
+        ports:
+            - 8765:8765
+        links:
+            - discovery:discovery
+        logging:
+            driver: json-file
+        environment:
+            server.port: 8765
+            eureka.client.enabled: 'true'
+            eureka.host: discovery
+            eureka.instance.preferIpAddress: 'true'
+    movie-info-service:
+        image: 182312214165.dkr.ecr.ap-south-1.amazonaws.com/shital-docker-repository:movie-info-service
+        ports:
+            - 8082:8082
+        links:
+            - discovery:discovery
+        logging:
+            driver: json-file
+        environment:
+            server.port: 8082
+            eureka.client.enabled: 'true'
+            eureka.host: discovery
+            eureka.instance.preferIpAddress: 'true'            
+            mongodb.host: shital-documentdb-cluster1.cluster-cw85gv7qxbkd.ap-south-1.docdb.amazonaws.com
+            mongodb.dbname: usersdb3
+    movie-catlog-service:
+        image: 182312214165.dkr.ecr.ap-south-1.amazonaws.com/shital-docker-repository:movie-catlog-service
+        ports:
+            - 8083:8083
+        links:
+            - discovery:discovery
+        logging:
+            driver: json-file
+        environment:
+            server.port: 8083
+            eureka.client.enabled: 'true'
+            eureka.host: discovery
+            eureka.instance.preferIpAddress: 'true'            
+            aws.access.key.id: AKIASU4VHT2KRTYN73OY
+            aws.secret.access.key: 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

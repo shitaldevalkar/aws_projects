@@ -1,0 +1,20 @@
+version: 1
+task_definition:
+  services:
+    discovery:
+      cpu_shares: 256
+      mem_limit: 0.2GB
+      mem_reservation: 0.2GB
+    gateway-service:
+      cpu_shares: 256
+      mem_limit: 0.2GB
+      mem_reservation: 0.2GB
+    movie-info-service:
+      cpu_shares: 256
+      mem_limit: 0.2GB
+      mem_reservation: 0.2GB
+    movie-catlog-service:
+      cpu_shares: 256
+      mem_limit: 0.2GB
+      mem_reservation: 0.2GB
+      
