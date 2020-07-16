@@ -53,5 +53,5 @@ services:
             eureka.client.enabled: 'true'
             eureka.host: discovery
             eureka.instance.preferIpAddress: 'true'            
-            aws.access.key.id: AKIASU4VHT2KRTYN73OY
-            aws.secret.access.key: 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
+            aws.access.key.id: <access.key>
+            aws.secret.access.key: <access.secret.key>
